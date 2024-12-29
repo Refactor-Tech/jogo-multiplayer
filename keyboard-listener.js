@@ -1,4 +1,4 @@
-export function createKeyboardListener() {
+export function createKeyboardListener(document) {
   const state = {
     observers: [],
   };
