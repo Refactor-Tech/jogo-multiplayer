@@ -13,7 +13,38 @@ function createGame() {
   };
 
   function movePlayer(command) {
-    console.log(`Moving ${command.playerId} with ${command.keyPressed}`);
+    console.log(
+      `game.movePlayer() -> moving ${command.playerId} with ${command.keyPressed}`
+    );
+
+    const acceptedMoves = {
+      ArrowUp(player) {
+        if (player.y - 1 >= 0) {
+          player.y -= 1;
+        }
+      },
+      ArrowDown(player) {
+        if (player.y + 1 < screen.height) {
+          player.y += 1;
+        }
+      },
+      ArrowLeft(player) {
+        if (player.x - 1 >= 0) {
+          player.x -= 1;
+        }
+      },
+      ArrowRight(player) {
+        if (player.x + 1 < screen.width) {
+          player.x += 1;
+        }
+      },
+    };
+
+    const keyPressed = command.keyPressed;
+    const player = state.players[command.playerId];
+    const moveFunction = acceptedMoves[keyPressed];
+
+    moveFunction && moveFunction(player);
   }
 
   return {
