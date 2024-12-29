@@ -1,3 +1,5 @@
+import { createKeyboardListener } from "./keyboard-listener.js";
+
 const screen = document.getElementById("screen");
 const context = screen.getContext("2d");
 
@@ -104,38 +106,6 @@ game.addPlayer({ playerId: "player2", playerX: 2, playerY: 3 });
 game.addPlayer({ playerId: "player3", playerX: 5, playerY: 7 });
 const keyboardListener = createKeyboardListener();
 keyboardListener.subscribe(game.movePlayer);
-
-function createKeyboardListener() {
-  const state = {
-    observers: [],
-  };
-
-  function subscribe(observerFunction) {
-    state.observers.push(observerFunction);
-  }
-
-  function notifyAll(command) {
-    for (const observerFunction of state.observers) {
-      observerFunction(command);
-    }
-  }
-
-  document.addEventListener("keydown", handleKeyDown);
-
-  function handleKeyDown() {
-    const keyPressed = event.key;
-    const command = {
-      playerId: "player1",
-      keyPressed,
-    };
-
-    notifyAll(command);
-  }
-
-  return {
-    subscribe,
-  };
-}
 
 renderScreen();
 
